@@ -1,0 +1,6 @@
+django
+django-bootstrap-v5
+pillow
+drf-yasg
+djangorestframework
+djangorestframework-simplejwt

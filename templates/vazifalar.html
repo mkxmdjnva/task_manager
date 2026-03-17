@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color:#12163a; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background:#12163a ; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h2 { color: #333; text-align: center; }
+        
+        /* Jadval uslubi */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #5cb85c; color: white; }
+        tr:hover { background-color: #0c1234; }
+
+        /* Status nishonlari */
+        .status { padding: 5px 10px; border-radius: 5px; font-size: 0.85em; font-weight: bold; }
+        .completed { background-color: #d4edda; color: #155724; }
+        .in-progress { background-color: #fff3cd; color: #856404; }
+        .pending { background-color: #f8d7da; color: #721c24; }
+
+        /* Tugmalar */
+        .btn { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; color: white; transition: 0.3s; }
+        .btn-edit { background-color: #007bff; margin-right: 5px; }
+        .btn-delete { background-color: #dc3545; }
+        .btn:hover { opacity: 0.8; }
+        
+        .add-task { display: block; width: fit-content; margin-bottom: 20px; padding: 10px 15px; background-color: #333; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-white">Mening Vazifalarim</h2>
+    
+    <a href="#" class="add-task">+ Yangi vazifa qo'shish</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th class="text-white">Vazifa nomi</th>
+                <th>Muddati</th>
+                <th>Holat</th>
+                <th>Amallar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-white">Loyiha hujjatlarini tayyorlash updated</td>
+                <td class="text-white">2024-05-20</td>
+                <td><span class="status completed">Bajarildi</span></td>
+                <td>
+                    <button class="btn btn-edit">Tahrirlash</button>
+                    <button class="btn btn-delete">O'chirish</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-white">Frontend qismini yakunlash</td>
+                <td class="text-white">2024-05-25</td>
+                <td><span class="status in-progress">Jarayonda</span></td>
+                <td>
+                    <a href="/edit/task/{{task_id}}" class="btn btn-edit">Tahrirlash</a>
+                    <button class="btn btn-delete">O'chirish</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-white">Mijoz bilan uchrashuv</td>
+                <td class="text-white">2024-05-28</td>
+                <td><span class="status pending">Kutilmoqda</span></td>
+                <td>
+                    <button class="btn btn-edit">Tahrirlash</button>
+                    <button class="btn btn-delete">O'chirish</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %} 
+

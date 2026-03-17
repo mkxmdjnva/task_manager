@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Task Manager Sozlamalar</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- O'zimizning CSS -->
+  <style>
+    body {
+      background-color: #1e1e2f;
+      color: #f0f0f0;
+      min-height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .card {
+      border-radius: 15px;
+      background-color: #2a2a4a;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(0,123,255,0.5);
+    }
+
+    .setting-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .setting-description {
+      font-size: 0.9rem;
+      color: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark bg-black px-4">
+    <span class="navbar-brand fs-4">⚙️ Task Manager — Sozlamalar</span>
+    <a href="/" class="btn btn-outline-light">⬅ Orqaga</a>
+  </nav>
+
+  <div class="container my-5">
+
+    <h1 class="mb-4 text-white">Sozlamalar</h1>
+
+    <div class="row g-4">
+
+      <!-- Profile Card -->
+      <div class="col-md-6">
+        <div class="card p-4" 
+        >
+          <div class="setting-title"><a href="/profile">Profil</a></div>
+          <div class="setting-description">Ism, email va hisob ma’lumotlarini o‘zgartirish</div>
+        </div>
+      </div>
+
+      {% comment %} <!-- Notifications Card -->
+      <div class="col-md-6">
+        <div class="card p-4">
+          <div class="setting-title">
+            <a href="">
+              Bildirishnomalar
+            </a>
+          </div>
+          <div class="setting-description">Bildirishnomalarni yoqish/o‘chirish</div>
+        </div>
+      </div> {% endcomment %}
+
+      <!-- Privacy Card -->
+      <div class="col-md-6">
+        <div class="card p-4" >
+          <div class="setting-title"><a href="/settings/privacy">Maxfiylik</a></div>
+          <div class="setting-description">Hisobingizni maxfiylik sozlamalarini boshqarish</div>
+        </div>
+      </div>
+
+      <!-- Appearance Card -->
+      <div class="col-md-6">
+        <div class="card p-4" >
+          <div class="setting-title"><a href="/view">Ko‘rinish</a></div>
+          <div class="setting-description">Dark/Light mode, ranglarni sozlash</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card" style="background-color: #1a2a3a; color: white; padding: 20px; border-radius: 15px; font-family: sans-serif; border: 1px solid rgba(255,255,255,0.1); position: relative;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <a href="/" onclick="resetCalendar()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba; color: rgba; padding: 5px 15px; border-radius: 5px; cursor: pointer; font-size: 14px;">
+            ← Orqaga
+        </a>
+        <h3 style="color: #00e5ff; margin: 0; flex-grow: 1; text-align: center; margin-right: 70px;">Fevral 2026</h3>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; font-weight: bold; color: rgba(red, green, blue, alpha); margin-bottom: 10px;">
+        <div>Du</div><div>Se</div><div>Ch</div><div>Pa</div><div>Ju</div><div style="color: #ff5555;">Sh</div><div style="color: #ff5555;">Ya</div>
+    </div>
+
+    <div id="feb-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center;">
+        </div>
+
+    <hr style="border: 0.5px solid rgba(255,255,255,0.1); margin: 20px 0;">
+
+    <div id="task-box" style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; min-height: 80px;">
+        <h4 id="status-title" style="color: #00e5ff; margin-top: 0;">Sana tanlang</h4>
+        <ul id="task-list-items" style="list-style: none; padding: 0; margin: 0;">
+            <li style="color: #666;">Vazifalarni ko'rish uchun ish kunini bosing.</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    const gridContainer = document.getElementById('feb-grid');
+    const statusTitle = document.getElementById('status-title');
+    const taskList = document.getElementById('task-list-items');
+
+    // Kalendarni qayta tiklash funksiyasi (Orqaga tugmasi uchun)
+    function resetCalendar() {
+        statusTitle.innerText = "Sana tanlang";
+        taskList.innerHTML = "<li style='color: #666;'>Vazifalarni ko'rish uchun ish kunini bosing.</li>";
+        // Barcha katakchalarning rangini asliga qaytarish
+        const boxes = gridContainer.getElementsByTagName('div');
+        for(let b of boxes) { b.style.boxShadow = "none"; b.style.borderColor = "rgba(255,255,255,0.05)"; }
+    }
+
+    // 2026-yil Fevral uchun bo'sh joylar (1-fevral Yakshanba)
+    for (let i = 0; i < 6; i++) {
+        gridContainer.appendChild(document.createElement('div'));
+    }
+
+    for (let d = 1; d <= 28; d++) {
+        let box = document.createElement('div');
+        box.innerText = d;
+        box.style.cssText = "padding: 10px 5px; background: #253341; border-radius: 5px; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transition: 0.2s;";
+
+        let wDay = (d + 5) % 7; 
+        let weekend = (wDay === 5 || wDay === 6);
+        if (weekend) box.style.color = "#ff5555";
+
+        box.onclick = () => {
+            // Tanlangan effektni berish
+            resetCalendar();
+            box.style.borderColor = "#00e5ff";
+            box.style.boxShadow = "0 0 10px rgba(0,229,255,0.2)";
+            
+            statusTitle.innerText = d + "-fevral vazifalari";
+            taskList.innerHTML = "";
+
+            if (weekend) {
+                taskList.innerHTML = "<li style='color: #ffaa00;'>😴 Dam olish kuni.</li>";
+            } else {
+                const mockTasks = ["Backend tekshiruvi", "Mijoz bilan aloqa", "Dizayn tahriri"];
+                mockTasks.forEach(t => {
+                    let li = document.createElement('li');
+                    li.style.cssText = "padding: 5px 0; border-bottom: 1px solid #333;";
+                    li.innerHTML = "💼 " + t;
+                    taskList.appendChild(li);
+                });
+            }
+        };
+        gridContainer.appendChild(box);
+    }
+</script>
+
+{% endblock %}

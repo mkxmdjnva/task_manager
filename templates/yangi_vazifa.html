@@ -1,0 +1,210 @@
+{% comment %} <!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        /* Home page va Modal uchun umumiy to'q ko'k rang */
+        body {
+            background-color: rgba(10, 25, 47, 1); /* To'q ko'k fon */
+            color: white;
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+
+        .card {
+            background-color: rgba(16, 33, 62, 0.9); /* Card foni */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .modal-content {
+            background-color: rgba(10, 25, 47, 0.95); /* Modal foni ham to'q ko'k */
+            color: white;
+            border: 1px solid rgba(0, 200, 255, 0.3);
+        }
+
+        .task-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #00d4ff;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        input {
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="mb-4">Vazifalar Manageri</h1>
+
+            <div id="taskList" class="text-start mb-4">
+                <div class="task-item">
+                    <h5>Loyiha dizaynini chizish</h5>
+                    <small class="text-info">Bugun, 14:00</small>
+                </div>
+                <div class="task-item">
+                    <h5>Bootstrap darsini takrorlash</h5>
+                    <small class="text-info">Ertaga, 10:00</small>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-lg shadow" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+                + Yangi vazifa qo'shish
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addTaskModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title">Yangi vazifa yaratish</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Vazifa nomi</label>
+                        <input type="text" class="form-control" placeholder="Masalan: Kitob o'qish">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Batafsil ma'lumot</label>
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Yopish</button>
+                <button type="button" class="btn btn-primary">Saqlash</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: rgba(10, 25, 47, 1);
+            color: white;
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+
+        .modal-content {
+            background-color: rgba(10, 25, 47, 0.95);
+            color: white;
+            border: 1px solid rgba(0, 200, 255, 0.3);
+        }
+
+        .task-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #00d4ff;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        input, textarea {
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="mb-4">Vazifalar Manageri</h1>
+
+            <div id="taskList" class="text-start mb-4">
+                {% for task in tasks %}
+                <div class="task-item">
+                    <h5>{{ task.title }}</h5>
+                    <small class="text-info">{{ task.description|truncatechars:50 }}</small>
+                </div>
+                {% empty %}
+                <p class="text-center text-muted">Hozircha vazifalar mavjud emas.</p>
+                {% endfor %}
+            </div>
+
+            <button type="button" class="btn btn-primary btn-lg shadow" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+                + Yangi vazifa qo'shish
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addTaskModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content shadow-lg">
+            <form method="post"> {% csrf_token %} <div class="modal-header border-secondary">
+                    <h5 class="modal-title">Yangi vazifa yaratish</h5>
+                    <button type="submit" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Vazifa nomi</label>
+                        <input type="text" name="title" class="form-control" placeholder="Masalan: Kitob o'qish" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Deadline</label>
+                        <input type="date" name="deadline" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Batafsil ma'lumot</label>
+                        <textarea name="description" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Yopish</button>
+                    <button type="submit" class="btn btn-primary">Saqlash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mening Vazifalarim</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #0d1b2a; color: white; padding: 50px; }
+        .table { color: white; border-color: #444; }
+        .bg-custom-green { background-color: #70e000 !important; color: black; }
+    </style>
+</head>
+<body>
+    <tbody>
+    {% for task in tasks %}
+    <tr>
+        <td>{{ task.name }}</td>
+        <td>{{ task.deadline }}</td>
+        <td>{{ task.status }}</td>
+        
+        <td class="text-center">
+            <a href="{% url 'edit_task' task.pk %}" class="btn btn-primary btn-sm me-2">
+                Tahrirlash
+            </a>
+
+            <a href="{% url 'delete_task' task.pk %}" 
+               class="btn btn-danger btn-sm" 
+               onclick="return confirm('Haqiqatan ham o\'chirmoqchimisiz?')">
+                O'chirish
+            </a>
+        </td>
+        </tr>
+    {% endfor %}
+</tbody>
+
+<div class="container">
+    <h2 class="mb-4 text-center">Mening Vazifalarim</h2>
+    
+    <table class="table table-bordered align-middle" id="taskTable">
+        <thead>
+            <tr class="bg-custom-green text-center">
+                <th>Vazifa nomi</th>
+                <th>Muddati</th>
+                <th>Holati</th>
+                <th>Amallar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="row-1">
+                <td class="task-name">Hujjatlarni tayyorlash</td>
+                <td>2024-05-10</td>
+                <td><span class="badge bg-success">Bajarildi</span></td>
+                <td class="text-center">
+                    <button class="btn btn-primary btn-sm me-2" onclick="editTask(1)">Tahrirlash</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteTask(1)">O'chirish</button>
+                </td>
+            </tr>
+            <tr id="row-2">
+                <td class="task-name">Frontendni yakunlash</td>
+                <td>2024-05-15</td>
+                <td><span class="badge bg-warning text-dark">Jarayonda</span></td>
+                <td class="text-center">
+                    <a href="/update/task/{{task_id}}" class="btn btn-primary btn-sm me-2">Tahrirlash</a>
+                    <button class="btn btn-danger btn-sm" onclick="deleteTask(2)">O'chirish</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // O'chirish funksiyasi
+    function deleteTask(id) {
+        if (confirm("Haqiqatan ham ushbu vazifani o'chirmoqchimisiz?")) {
+            const row = document.getElementById('row-' + id);
+            row.remove(); // Jadvaldan qatorni butunlay olib tashlaydi
+        }
+    }
+
+    // Tahrirlash (Update) funksiyasi
+    function editTask(id) {
+        const row = document.getElementById('row-' + id);
+        const taskNameCell = row.querySelector('.task-name');
+        const oldName = taskNameCell.innerText;
+
+        // Yangi nomni so'rash
+        let newName = prompt("Vazifa nomini tahrirlang:", oldName);
+
+        if (newName !== null && newName.trim() !== "") {
+            taskNameCell.innerText = newName; // Jadvaldagi matnni yangilaydi
+            alert("Vazifa muvaffaqiyatli yangilandi!");
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
